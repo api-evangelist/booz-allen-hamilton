@@ -1,0 +1,7 @@
+aid: booz-allen-hamilton
+url: https://raw.githubusercontent.com/api-evangelist/booz-allen-hamilton/refs/heads/main/apis.yml
+modified: '2026-03-21'
+apis: []
+common:
+  - type: Website
+    url: https://www.booz-allen-hamilton.com
