@@ -1,7 +1,12 @@
 aid: booz-allen-hamilton
-url: https://raw.githubusercontent.com/api-evangelist/booz-allen-hamilton/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/booz-allen-hamilton/refs/heads/main/apis.yml
 modified: '2026-03-21'
 apis: []
 common:
   - type: Website
     url: https://www.booz-allen-hamilton.com
+description: >-
+  Booz Allen Hamilton is a management and information technology consulting firm providing
+  services primarily to U.S. government agencies in the defense, intelligence, and
+  civil markets.
