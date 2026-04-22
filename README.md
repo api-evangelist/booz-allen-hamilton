@@ -1,33 +1,28 @@
-# Booz Allen Hamilton (booz-allen-hamilton)
-Booz Allen Hamilton is a Fortune 500 company. This repository captures the APIs, developer tools, and machine-readable API artifacts for Booz Allen Hamilton.
+# Booz Allen Hamilton
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/booz-allen-hamilton/refs/heads/main/apis.yml)
+Booz Allen Hamilton is a leading management and technology consulting firm providing services primarily to U.S. government agencies in defense, intelligence, and civil markets. The firm employs over 2,500 AI specialists and 8,000 cybersecurity professionals, and maintains a significant open source presence on GitHub.
 
-## Scope
+**URL:** [https://www.boozallen.com](https://www.boozallen.com)
 
-- **Type:** Contract
-- **Position:** Consuming
-- **Access:** 3rd-Party
+**GitHub:** [https://github.com/boozallen](https://github.com/boozallen)
 
-## Tags:
+**APIs.yml:** [View APIs Index](https://raw.githubusercontent.com/api-evangelist/booz-allen-hamilton/refs/heads/main/apis.yml)
 
- - Fortune 500
+## Open Source Projects
 
-## Timestamps
+- **[Solutions Delivery Platform (SDP)](https://boozallen.github.io/sdp-docs/overview/1/index.html)** - Open source reusable DevSecOps pipeline framework
+- **[Open Data Platform](https://boozallen.github.io/opendataplatform/)** - Enterprise-scale, vendor-neutral open source data platform
+- **[Cognition](https://github.com/boozallen/cognition)** - Open source platform for data ingest, data fusion, and search
 
-- **Created:** 2026-03-21
-- **Modified:** 2026-03-21
+## Core Capabilities
 
-## APIs
-
-No public APIs have been documented yet. Contributions welcome.
-
-## Common Properties
-
-- [Website](https://www.booz-allen-hamilton.com)
+- **Artificial Intelligence** - Leading AI provider to the federal government; machine learning, NLP, computer vision, LLM integration
+- **Cybersecurity** - Zero trust, threat intelligence, incident response, critical infrastructure protection
+- **Digital Transformation** - Cloud migration, legacy modernization, DevSecOps, platform engineering
+- **Defense Technology** - C2 systems, mission systems, autonomous systems, warfighter technology
+- **Space Technology** - Domain awareness, battle management, satellite analytics
+- **Quantum Computing** - Quantum algorithms, quantum-safe cryptography, post-quantum security
 
 ## Maintainers
 
-**FN:** API Evangelist
-
-**Email:** info@apievangelist.com
+- **Kin Lane** - kinlane@gmail.com
