@@ -23,6 +23,8 @@ tags:
   - Technology
 apis: []
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/booz-allen-hamilton
   - type: Website
     url: https://www.boozallen.com
   - type: GitHub
