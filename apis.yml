@@ -125,6 +125,8 @@ common:
           - Search
           - Open Source
           - Intelligence Analytics
+  - type: LLMsTxt
+    url: https://boozallen.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kinlane@gmail.com
