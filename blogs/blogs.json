@@ -2,13 +2,14 @@
   "repo": "booz-allen-hamilton",
   "feeds": [
     {
-      "source": "https://www.boozallen.com/insights.html",
-      "feed_url": "",
+      "source": "https://boozallen.github.io/sdp-docs/overview/1/index.html",
+      "feed_url": "https://boozallen.github.io/sdp-docs/overview/1/index.html",
+      "title": "",
       "saved": 0,
-      "method": "agent-scrape"
+      "method": "none"
     }
   ],
   "post_count": 4,
-  "fetched": "2026-06-27T12:28:36Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "agent_pulled": "2026-06-27"
 }
