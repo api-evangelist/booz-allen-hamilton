@@ -1,0 +1,123 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  Agent Foundry docs (github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/),
+  security/stig_checklist.json in the same repo, boozallen.com compliance pages — read 2026-09-14
+note: >-
+  Booz Allen's conformance story is a defense-contractor one, not a web-API one: no OAuth, no
+  OpenID Connect, no RFC 9457, no FHIR/FAPI/SCIM/OData. What it does implement, and publishes
+  evidence for, is the agent-interop stack (A2A, MCP, JSON-RPC 2.0, SSE) and a machine-readable
+  DISA STIG assessment of its agent baseline.
+conformance:
+  - id: a2a
+    name: Agent2Agent (A2A) protocol
+    conforms: true
+    evidence: https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/a2a-protocol.md
+    detail: >-
+      The strands-base-agent baseline mounts a full A2A server via strands.multiagent.a2a.A2AServer —
+      /.well-known/agent-card.json discovery, a JSON-RPC endpoint implementing message/send,
+      message/stream, tasks/get, tasks/cancel and the four tasks/pushNotificationConfig methods, plus
+      an optional /agent/authenticatedExtendedCard. The card is built at boot with capabilities as an
+      object ({"streaming": true}) and skills as an array (one per registered tool). Note this is a
+      conformance claim about SOFTWARE BOOZ ALLEN SHIPS — Booz Allen itself serves no agent card on
+      any of its own hosts (see well-known/booz-allen-hamilton-well-known.yml).
+    gaps:
+      - 'The documented example card omits protocolVersion and preferredTransport.'
+      - 'tasks/pushNotificationConfig/* return -32601 in the default build (no push_config_store).'
+  - id: mcp
+    name: Model Context Protocol (client)
+    conforms: true
+    role: client
+    evidence: https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/mcp-servers.md
+    detail: The agent consumes remote MCP servers declared in config.yaml; it publishes none.
+  - id: jsonrpc2
+    name: JSON-RPC 2.0
+    conforms: true
+    evidence: https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/a2a-protocol.md
+    detail: A2A methods are dispatched through a single endpoint using JSON-RPC 2.0; -32601 is returned for unwired methods.
+  - id: sse
+    name: Server-Sent Events (WHATWG)
+    conforms: true
+    evidence: https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/http-api.md
+    detail: 'POST /api/v1/query/stream returns text/event-stream with named events token/result/done/error/event.'
+  - id: semver
+    name: Semantic Versioning 2.0.0
+    conforms: true
+    evidence: https://github.com/boozallen/strands-base-agent/blob/develop/CHANGELOG.md
+  - id: keepachangelog
+    name: Keep a Changelog 1.0.0
+    conforms: true
+    evidence: https://github.com/boozallen/foundry-agent-packages/blob/develop/CHANGELOG.md
+  - id: openapi
+    name: OpenAPI 3.0.0
+    conforms: true
+    evidence: openapi/booz-allen-hamilton-palm-openapi.yaml
+    detail: >-
+      PALM publishes a valid but minimal OpenAPI 3.0.0 document — one path, one operation, no
+      securitySchemes, a relative server (/api). The Agent Foundry service generates an OpenAPI at
+      runtime (<AGENT_BASE_URL>/openapi.json, Swagger UI at /docs, ReDoc at /redoc) but Booz Allen
+      publishes no static copy.
+  - id: rfc9457
+    name: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    evidence: https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/http-api.md
+    detail: 'A bespoke flat envelope {error, message, details, correlation_id, timestamp} is returned instead of application/problem+json.'
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: false
+    evidence: authentication/booz-allen-hamilton-authentication.yml
+    detail: No OAuth surface exists on either published contract.
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: well-known/booz-allen-hamilton-well-known.yml
+    detail: /.well-known/openid-configuration returns the marketing site's SPA shell, not a discovery document.
+  - id: rfc9116
+    name: RFC 9116 security.txt
+    conforms: false
+    evidence: security/booz-allen-hamilton-vulnerability-disclosure.yml
+    detail: A named CIRT and a public reporting address exist, but no security.txt is served.
+domain_standards:
+  - id: disa-asd-stig
+    name: DISA Application Security and Development (ASD) STIG / SRG
+    conforms: partial
+    evidence: https://github.com/boozallen/strands-base-agent/blob/develop/security/stig_checklist.json
+    detail: >-
+      A machine-readable, per-control assessment of the agent baseline shipped in the repo, keyed on
+      DISA vuln_id / rule_id / stig_id (e.g. V-222401, SV-222401r960759_rule, SRG-APP-000001).
+      assessment.assessed_by "foundry-stigkit", assessment_date 2026-06-22, 286 findings across the
+      session/auth/authz/crypto/validation/audit/data domains. Status split as published:
+      187 not_applicable, 72 needs_human_review, 20 meets_requirement, 7 non_compliant;
+      responsibility split 227 baseline / 38 delivery / 21 shared. Booz Allen describes it as a
+      "recommended template, not a hard requirement" for adopters pursuing ATO.
+    why_this_is_the_domain_standard: >-
+      This is the federal defense-software market's own conformance language. A buyer inside an ATO
+      process reads a STIG checklist natively; anything else needs a bespoke mapping. It is the
+      market-appropriate equivalent of a FHIR profile in health or PSD2 in banking.
+  - id: open-inference-protocol
+    name: Open Inference Protocol (OIP / KServe v2 predict)
+    conforms: true
+    evidence: https://github.com/boozallen/aissemble-inference
+    detail: >-
+      aiSSEMBLE Inference exists to "promote interoperability across diverse inference runtimes and
+      platforms by adhering to the consistent OIP API specification for inference", and ships a client
+      library (aissemble-inference-core on PyPI, 1.5.0, 2026-02-04) to invoke OIP endpoints. The OIP
+      contract itself is the standard body's, not Booz Allen's, so nothing is saved to grpc/ here.
+organization_accreditations:
+  note: >-
+    Company-level accreditations Booz Allen holds as an assessor of others. They are not product
+    certifications for any API in this record, and are recorded as what they are.
+  entries:
+    - name: FedRAMP Third Party Assessment Organization (3PAO)
+      url: https://www.boozallen.com/markets/commercial-solutions/federal-risk-and-authorization-management-program.html
+      http_status: 200
+    - name: CMMC Third-Party Assessor Organization (C3PAO), authorized by the Cyber AB
+      url: https://www.boozallen.com/expertise/cybersecurity/cmmc.html
+      http_status: 200
+absent:
+  - id: fhir
+  - id: fapi
+  - id: scim
+  - id: odata
+  - id: psd2
+  - id: jsonapi

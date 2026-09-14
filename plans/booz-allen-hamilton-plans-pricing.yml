@@ -1,0 +1,20 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  https://www.boozallen.com (site nav + footer), https://www.boozallen.com/expertise/products.html,
+  and the LICENSE/README of every active boozallen GitHub repo — read 2026-09-14
+plan_count: 0
+plans: []
+note: >-
+  Booz Allen Hamilton publishes no plans, tiers or prices, and there is nothing to buy self-serve.
+  Two distinct reasons, both real: (1) the firm's revenue is US government contracting — work is
+  priced per contract vehicle and task order, not per seat or per call, and the site has no pricing
+  page and no sign-up; (2) the software surfaces this record profiles (Agent Foundry, aiSSEMBLE,
+  the Solutions Delivery Platform, PALM) are Apache-2.0 open source that adopters self-host at their
+  own infrastructure cost — PALM's README positions it explicitly against "expensive, proprietary
+  AI chat solutions". A plan_count of 0 here is an accurate description of the business model, not
+  a gap in the probe.
+free_tier:
+  available: true
+  form: Apache-2.0 source, no registration, no key, no metering
+  note: The products are free; the consulting that deploys them is not, and its price is never published.

@@ -1,0 +1,72 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/http-api.md#error-format
+  and .../a2a-protocol.md — read 2026-09-14
+format: custom
+problem_json: false
+envelope:
+  media_type: application/json
+  fields:
+    - name: error
+      type: string
+      description: error class name, e.g. ValidationError
+    - name: message
+      type: string
+      description: human-readable explanation
+    - name: details
+      type: object|null
+      description: optional structured detail; null when absent
+    - name: correlation_id
+      type: string
+      description: server-assigned trace id, also present on success payloads and SSE events
+    - name: timestamp
+      type: string
+      description: ISO 8601 UTC
+  produced_by: ErrorHandlingMiddleware in foundry-agent-fastapi
+  example: |
+    {
+      "error": "ValidationError",
+      "message": "Query cannot be empty or whitespace only",
+      "details": null,
+      "correlation_id": "f1b3…",
+      "timestamp": "2026-06-26T12:34:56Z"
+    }
+problem_types:
+  - status: 400
+    title: Domain validation rejected the request
+    detail: >-
+      Also used for transient MCP failures, which additionally carry retryable: true in the SSE
+      error payload — a client may retry those once the MCP connection recovers.
+    remediation: Fix the request, or retry when retryable is true.
+  - status: 404
+    title: Session not found
+    detail: Chat-history routes only — GET or DELETE on a session id that does not exist.
+    remediation: Create the session with PUT /api/v1/chat/history/{session_id} first.
+  - status: 422
+    title: Pydantic request validation failed
+    detail: The body did not satisfy the request model (length, pattern or size bounds).
+    remediation: Check the documented input bounds in conventions/booz-allen-hamilton-conventions.yml.
+  - status: 500
+    title: Unhandled server error
+    detail: Any error the middleware did not classify.
+    remediation: Report with the correlation_id.
+streaming_errors:
+  event: error
+  payload_fields: [error, message, correlation_id, session_id, retryable]
+  note: The same envelope shape arrives as the payload of an `error` Server-Sent Event; the stream then ends.
+jsonrpc_errors:
+  applies_to: A2A JSON-RPC endpoint
+  known_codes:
+    - code: -32601
+      name: MethodNotFoundError
+      detail: >-
+        Returned by tasks/pushNotificationConfig/{set,get,list,delete} in the default build, because
+        no push_config_store is wired in. tasks/get and tasks/cancel work out of the box against the
+        default InMemoryTaskStore.
+  note: All other A2A codes are defined by the A2A specification, not by this implementation.
+absent:
+  note: >-
+    No numbered error-code registry is published — the `error` field carries a class name, not a
+    stable code. Nothing here is derived from an OpenAPI: the FastAPI-generated spec is only served
+    by a running deployment (<AGENT_BASE_URL>/openapi.json), never published by Booz Allen.

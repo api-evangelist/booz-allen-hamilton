@@ -1,0 +1,94 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/http-api.md
+  and .../a2a-protocol.md — read 2026-09-14
+note: >-
+  Derived from the documented request/response shapes of the Agent Foundry HTTP + A2A surfaces, not
+  from a machine-readable schema — Booz Allen publishes no OpenAPI for this service (the FastAPI spec
+  exists only on a running deployment). Field names and types are quoted from the docs tables.
+entities:
+  - name: Session
+    description: A persisted chat session, held by the configured ChatHistoryManager (file or S3 by default).
+    identifier: session_id
+    identifier_format: 8-128 chars [A-Za-z0-9_-] in a body; 3-40 chars as a path parameter
+    fields:
+      - {name: session_id, type: string}
+      - {name: session_type, type: string, note: '"AGENT" for chat sessions'}
+      - {name: created_at, type: string, format: date-time}
+      - {name: updated_at, type: string, format: date-time}
+  - name: SessionMessage
+    description: One message inside a session, returned oldest-first.
+    fields:
+      - {name: message, type: object, note: 'Strands Message — role + content blocks'}
+      - {name: message_id, type: integer, note: index of the message in conversation history}
+      - {name: redact_message, type: object|null, note: content to show instead of message when redacted}
+      - {name: created_at, type: string, format: date-time}
+      - {name: updated_at, type: string, format: date-time}
+  - name: QueryRequest
+    description: Input to the sync and streaming query endpoints.
+    fields:
+      - {name: query, type: string, required: true}
+      - {name: session_id, type: string|null}
+      - {name: context, type: object|null}
+      - {name: max_results, type: integer}
+      - {name: similarity_threshold, type: number}
+  - name: QueryResponse
+    fields:
+      - {name: content, type: string}
+      - {name: session_id, type: string|null}
+      - {name: processing_time_ms, type: number}
+      - {name: timestamp, type: string, format: date-time}
+      - {name: metadata, type: object|null}
+      - {name: correlation_id, type: string|null}
+      - {name: api_version, type: string, note: 'currently "1.0"'}
+  - name: AgentCard
+    description: A2A discovery document built at server boot from agent identity and the tool registry.
+    fields:
+      - {name: name, type: string, source: agent_name}
+      - {name: description, type: string, source: agent_description}
+      - {name: version, type: string, source: agent_version}
+      - {name: url, type: string, source: STRANDS_AGENT_PUBLIC_URL}
+      - {name: capabilities, type: object, note: 'always {"streaming": true} in the baseline'}
+      - {name: skills, type: array, note: one AgentSkill per registered tool}
+      - {name: defaultInputModes, type: array}
+      - {name: defaultOutputModes, type: array}
+  - name: Task
+    description: A2A task, held in an InMemoryTaskStore by default.
+    fields:
+      - {name: taskId, type: string}
+  - name: Message
+    description: A2A message.
+    fields:
+      - {name: messageId, type: string}
+      - {name: role, type: string, note: '"user" | "agent"'}
+      - {name: parts, type: array, note: TextPart / FilePart / DataPart}
+      - {name: kind, type: string, note: fixed discriminator "message"}
+      - {name: contextId, type: string|null, note: A2A analogue of session_id}
+      - {name: taskId, type: string|null}
+      - {name: referenceTaskIds, type: array|null}
+relationships:
+  - from: Session
+    to: SessionMessage
+    type: has_many
+    via: session_id
+  - from: QueryRequest
+    to: Session
+    type: belongs_to
+    via: session_id
+  - from: QueryResponse
+    to: Session
+    type: belongs_to
+    via: session_id
+  - from: AgentCard
+    to: AgentSkill
+    type: has_many
+    via: skills
+  - from: Message
+    to: Task
+    type: belongs_to
+    via: taskId
+  - from: Message
+    to: Message
+    type: has_many
+    via: referenceTaskIds

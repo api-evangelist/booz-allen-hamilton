@@ -1,0 +1,43 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  https://raw.githubusercontent.com/boozallen/strands-base-agent/develop/AGENTS.md and
+  https://raw.githubusercontent.com/boozallen/foundry-agent-packages/develop/AGENTS.md — fetched 2026-09-14
+note: >-
+  Provider-published, saved verbatim. Booz Allen ships AGENTS.md files as first-class documentation in
+  its two active Agent Foundry repos — operating instructions written by the vendor for coding agents
+  working in the codebase, listed in each README's "Where to go" table. Nothing here is generated on
+  Booz Allen's behalf: no skill was authored from an OpenAPI, because the only Booz Allen OpenAPI in
+  the estate is PALM's single-operation prompt spec and there is no flow to ground a skill in.
+skills:
+  - name: strands-base-agent
+    file: booz-allen-hamilton-strands-base-agent-AGENTS.md
+    title: AGENTS.md — Strands Base Agent (Starter Repo)
+    api: Agent Foundry — Strands Base Agent
+    method: searched
+    source: https://github.com/boozallen/strands-base-agent/blob/develop/AGENTS.md
+    bytes: 13210
+    covers:
+      - what the repo is (composition root wiring the foundry-agent-* packages)
+      - the first 90 seconds after forking (just setup, config.yaml, env.template, just demo)
+      - the two ways to extend the baseline
+      - HTTP API routes, A2A protocol server, config.yaml structure, tools/ directory
+  - name: foundry-agent-packages
+    file: booz-allen-hamilton-foundry-agent-packages-AGENTS.md
+    title: AGENTS.md — foundry-agent-packages
+    api: Agent Foundry — Strands Base Agent
+    method: searched
+    source: https://github.com/boozallen/foundry-agent-packages/blob/develop/AGENTS.md
+    bytes: 17304
+    covers:
+      - workspace layout and the four packages, their dependency direction
+      - conventions for the uv workspace, just recipes, test tiers
+      - how a downstream repo consumes the released wheels
+related:
+  provider_published_agent_tooling:
+    note: >-
+      Both repos also ship .claude/, .cursor/ and .github/ skill and command sets for the OpenSpec
+      workflow (openspec-new-change, -apply-change, -verify-change, -archive-change, -sync-specs,
+      -explore, -continue, -ff). Those encode a third-party spec-driven development workflow rather
+      than how to call a Booz Allen API, so they are indexed here but not copied.
+    example: https://github.com/boozallen/strands-base-agent/tree/develop/.claude/skills

@@ -1,0 +1,45 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/mcp-servers.md
+  and https://boozallen.github.io/agent-foundry/ — read 2026-09-14
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+status: none
+role: client
+note: >-
+  Booz Allen publishes NO MCP server — not a hosted endpoint, not an installable stdio package.
+  The relationship runs the other way: the Agent Foundry strands-base-agent baseline is an MCP
+  CLIENT. An adopter declares remote MCP servers in config.yaml (`mcp_servers:` with `name`, `url`
+  and optional `headers`, with ${VAR} substitution for secrets) and the agent discovers and calls
+  those tools automatically, wrapped in a ReconnectingAgentProxy that recreates the agent and
+  retries once when an MCP connection drops mid-request. The documented example points at GitHub's
+  own server (https://api.githubcopilot.com/mcp/), which is GitHub's surface, not Booz Allen's.
+  No candidate tool list is derived here: the only Booz Allen OpenAPI in the estate is the
+  single-operation PALM prompt spec, and a derived one-tool manifest would assert an agent surface
+  that does not exist.
+client_configuration:
+  file: config.yaml
+  key: mcp_servers
+  fields:
+    - name: name
+      required: false
+      description: human-readable identifier
+    - name: url
+      required: true
+      description: MCP server endpoint URL
+    - name: headers
+      required: false
+      description: request headers, useful for auth tokens; supports ${VAR} substitution
+  reconnect:
+    behavior: ReconnectingAgentProxy recreates the agent when an MCP connection drops mid-request
+    retries: 1
+    error_surfaced: mcp_reconnect_failed
+    http_status: 400
+    retryable_flag: true
+  source: https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/mcp-servers.md

@@ -1,0 +1,34 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/http-api.md and
+  .../docs/foundry/configuration/environment-variables.md — read 2026-09-14
+limit_count: 0
+rate_limits: []
+headers: []
+exhaustion_status: null
+note: >-
+  No rate limits are published and none would be meaningful: the only Booz Allen service with a
+  documented HTTP contract is self-hosted by the adopter, who sets their own capacity. No
+  RateLimit-*/X-RateLimit-*/Retry-After headers are documented and 429 does not appear among the
+  statuses the error middleware returns (400 / 404 / 422 / 500). An agent calling a deployed fork
+  gets no runtime throttling signal at all.
+input_bounds:
+  note: >-
+    What the baseline DOES enforce is per-request input bounds — the nearest published thing to a
+    quota, and the values a client must respect to avoid a 422.
+  limits:
+    - {field: query, bound: '1-8192 characters, non-whitespace', config_default: 'max_query_length 2000'}
+    - {field: session_id, bound: '8-128 chars [A-Za-z0-9_-] in body; 3-40 chars in path'}
+    - {field: context, bound: '<= 32 keys, <= 16 KiB serialized'}
+    - {field: max_results, bound: '1-100 (default 10)'}
+    - {field: similarity_threshold, bound: '0.0-1.0 (default 0.7)'}
+    - {field: limit, bound: '1-100 on chat-history listings'}
+    - {field: offset, bound: '>= 0'}
+    - {field: max_response_time_ms, bound: 'default 30000'}
+  timeouts:
+    - {name: AWS_READ_TIMEOUT, default: 900, unit: seconds, scope: Bedrock read}
+    - {name: AWS_CONNECT_TIMEOUT, default: 60, unit: seconds, scope: Bedrock connect}
+upstream_note: >-
+  Real throughput limits on a deployed agent come from the model provider it is pointed at (AWS
+  Bedrock by default), not from Booz Allen.

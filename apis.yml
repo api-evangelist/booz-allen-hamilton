@@ -32,7 +32,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/booz-allen-hamilton.png
 url: https://raw.githubusercontent.com/api-evangelist/booz-allen-hamilton/refs/heads/main/apis.yml
 created: '2024-01-01'
-modified: '2026-04-19'
+modified: '2026-09-14'
 specificationVersion: '0.23'
 tags:
   - Artificial Intelligence
@@ -54,7 +54,71 @@ tags_raw:
   - Management Consulting
   - Technology
   - Fortune 500
-apis: []
+apis:
+  - aid: booz-allen-hamilton-agent-foundry-strands-base-agent
+    name: Agent Foundry — Strands Base Agent API
+    description: >-
+      The HTTP and A2A surface of Booz Allen's Agent Foundry agent baseline, an Apache-2.0
+      composition root that teams fork and deploy in their own environment. It serves three REST
+      groups — /api/v1/query (sync and SSE-streaming agent queries), /api/v1/chat/history (CRUD over
+      persisted sessions) and /api/v1/health — alongside a full Agent2Agent protocol server
+      (/.well-known/agent-card.json plus a JSON-RPC endpoint carrying message/send, message/stream,
+      tasks/get and tasks/cancel) on the same FastAPI app. It is also an MCP client: remote MCP
+      servers are declared in config.yaml and their tools are discovered automatically. Self-hosted —
+      Booz Allen operates no instance, so the base URL is whatever host the adopter deploys to.
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/booz-allen-hamilton.png
+    humanURL: https://boozallen.github.io/agent-foundry/
+    baseURL: https://{agent-host}/api/v1
+    tags:
+      - Artificial Intelligence
+      - Agents
+      - Open Source
+    properties:
+      - type: Documentation
+        url: https://boozallen.github.io/agent-foundry/
+      - type: GettingStarted
+        url: https://boozallen.github.io/agent-foundry/docs/getting-started/choose-your-path
+      - type: APIReference
+        url: https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/http-api.md
+      - type: Quickstart
+        url: https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/quickstart.md
+      - type: SourceCode
+        url: https://github.com/boozallen/strands-base-agent
+      - type: Conventions
+        url: conventions/booz-allen-hamilton-conventions.yml
+      - type: ErrorCatalog
+        url: errors/booz-allen-hamilton-problem-types.yml
+      - type: DataModel
+        url: data-model/booz-allen-hamilton-data-model.yml
+      - type: MCPClient
+        url: mcp/booz-allen-hamilton-mcp.yml
+      - type: AgentSkill
+        url: skills/_index.yml
+  - aid: booz-allen-hamilton-palm
+    name: PALM Prompt Library API
+    description: >-
+      The published OpenAPI of PALM (Prompt & Agent Library Marketplace), Booz Allen's
+      model-agnostic enterprise LLM chat and agent platform. The document is real but minimal — one
+      operation, POST /user-story, which generates a user story with a value statement and acceptance
+      criteria. The rest of PALM's surface runs over tRPC inside the Next.js application and is not
+      described by any published machine-readable contract. Self-hosted: the spec's server is the
+      relative path /api on whatever origin the adopter deploys PALM to.
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/booz-allen-hamilton.png
+    humanURL: https://github.com/boozallen/palm
+    baseURL: https://{palm-host}/api
+    tags:
+      - Artificial Intelligence
+      - Prompts
+      - Open Source
+    properties:
+      - type: OpenAPI
+        url: openapi/booz-allen-hamilton-palm-openapi.yaml
+      - type: Overlay
+        url: overlays/booz-allen-hamilton-palm-overlay.yaml
+      - type: SourceCode
+        url: https://github.com/boozallen/palm
+      - type: Documentation
+        url: https://github.com/boozallen/palm/blob/main/README.md
 common:
   - type: DomainSecurity
     url: security/booz-allen-hamilton-domain-security.yml
@@ -64,20 +128,18 @@ common:
     url: https://www.boozallen.com
   - type: GitHub
     url: https://github.com/boozallen
-  - type: GitHubOrg
-    url: https://github.com/booz-allen-hamilton
-  - type: OpenDataPlatform
+  - type: X-OpenDataPlatform
     url: https://boozallen.github.io/opendataplatform/
-  - type: SolutionsDeliveryPlatform
+  - type: X-SolutionsDeliveryPlatform
     url: https://boozallen.github.io/sdp-docs/overview/1/index.html
   - type: Blog
     url: https://www.boozallen.com/insights.html
   - type: About
-    url: https://www.boozallen.com/who-we-are.html
+    url: https://www.boozallen.com/about.html
   - type: Careers
     url: https://www.boozallen.com/careers.html
   - type: Contact
-    url: https://www.boozallen.com/contact.html
+    url: https://www.boozallen.com/tools/footer-navigation/contact-us.html
   - name: Use Cases
     type: UseCases
     data:
@@ -162,6 +224,68 @@ common:
           - Intelligence Analytics
   - type: LlmsText
     url: https://boozallen.com/llms.txt
+  - type: TermsOfService
+    url: https://www.boozallen.com/tools/footer-navigation/terms-of-use.html
+  - type: PrivacyPolicy
+    url: https://www.boozallen.com/tools/footer-navigation/privacy-policy.html
+  - type: Packages
+    url: packages/booz-allen-hamilton-packages.yml
+  - type: SDKs
+    url: packages/booz-allen-hamilton-packages.yml
+  - type: Conventions
+    url: conventions/booz-allen-hamilton-conventions.yml
+  - type: Idempotency
+    url: conventions/booz-allen-hamilton-conventions.yml
+  - type: ErrorCatalog
+    url: errors/booz-allen-hamilton-problem-types.yml
+  - type: DataModel
+    url: data-model/booz-allen-hamilton-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/booz-allen-hamilton-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/booz-allen-hamilton-changelog.yml
+  - type: Conformance
+    url: conformance/booz-allen-hamilton-conformance.yml
+  - type: Compliance
+    url: conformance/booz-allen-hamilton-conformance.yml
+  - type: VulnerabilityDisclosure
+    url: security/booz-allen-hamilton-vulnerability-disclosure.yml
+  - type: Security
+    url: https://www.boozallen.com/e/about-content/cyber-security-concern-reporting.html
+  - type: MCPClient
+    url: mcp/booz-allen-hamilton-mcp.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Plans
+    url: plans/booz-allen-hamilton-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/booz-allen-hamilton-rate-limits.yml
+  - type: X-WellKnownProbe
+    url: well-known/booz-allen-hamilton-well-known.yml
 maintainers:
   - FN: Kin Lane
     email: kinlane@gmail.com
+
+x-enrichment:
+  date: '2026-09-14'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v3
+x-coverage:
+  state: covered
+  reason: contract-found
+  detail: >-
+    Booz Allen operates no public callable API, but STEP 0b contract discovery on the boozallen
+    GitHub organization surfaced a real first-party OpenAPI (boozallen/palm openapi-specification.yaml)
+    and a fully documented self-hosted HTTP + A2A surface in the Agent Foundry strands-base-agent
+    baseline, so this pass is a found-surface pass rather than a wall.
+  evidence:
+    - url: https://raw.githubusercontent.com/boozallen/palm/main/openapi-specification.yaml
+      status: 200
+    - url: https://boozallen.github.io/agent-foundry/
+      status: 200
+    - url: https://www.boozallen.com/llms.txt
+      status: 200
+    - url: https://www.boozallen.com/.well-known/security.txt
+      status: 200
+  checked: '2026-09-14'

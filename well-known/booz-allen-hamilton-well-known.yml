@@ -1,0 +1,102 @@
+generated: '2026-09-14'
+method: probed
+source: live HTTP probes of every host this record knows, 2026-09-14
+note: >-
+  Nothing was found. www.boozallen.com and boozallen.com answer HTTP 200 with the identical
+  170,486-byte SPA shell (text/html) for EVERY /.well-known/* path probed — a catch-all, not a
+  document. Per the pipeline rule those 200s are recorded as misses and NO WellKnown or SecurityTxt
+  pointer is emitted. boozallen.github.io (the GitHub Pages host serving the SDP, Open Data Platform,
+  aiSSEMBLE and Agent Foundry docs) returns a real 404 for every path. There is no API host to probe:
+  Booz Allen operates no public callable API.
+hosts:
+  - host: www.boozallen.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+        note: SPA HTML shell, not a document — treated as a miss
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: null
+        note: SPA HTML shell, not a document — treated as a miss
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: null
+        note: SPA HTML shell, not a document — treated as a miss
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+        note: SPA HTML shell, not a document — treated as a miss
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: null
+        note: SPA HTML shell, not a document — treated as a miss
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+        note: SPA HTML shell, not a document — treated as a miss
+      - path: /.well-known/agent.json
+        status: 200
+        file: null
+        note: SPA HTML shell, not a document — treated as a miss
+  - host: boozallen.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+        note: same SPA shell as www
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: null
+        note: same SPA shell as www
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: null
+        note: same SPA shell as www
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+        note: same SPA shell as www
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: null
+        note: same SPA shell as www
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+        note: same SPA shell as www
+      - path: /.well-known/agent.json
+        status: 200
+        file: null
+        note: same SPA shell as www
+  - host: boozallen.github.io
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+agent_card:
+  found: false
+  note: >-
+    No agent card is served by Booz Allen. This is worth stating precisely, because the firm
+    SHIPS software that serves one: the strands-base-agent baseline mounts
+    /.well-known/agent-card.json (and a deprecated /.well-known/agent.json alias) on every fork an
+    adopter deploys. The card exists in adopters' deployments, never on a boozallen.com host, so
+    per the A2A recipe nothing is written to a2a/.

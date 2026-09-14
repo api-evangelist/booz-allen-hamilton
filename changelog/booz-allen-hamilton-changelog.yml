@@ -1,0 +1,68 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  https://github.com/boozallen/foundry-agent-packages/blob/develop/CHANGELOG.md,
+  https://github.com/boozallen/strands-base-agent/blob/develop/CHANGELOG.md,
+  GitHub Releases API for both repos — read 2026-09-14
+scheme: keepachangelog
+versioning: semver
+note: >-
+  Booz Allen publishes no product changelog on boozallen.com. What it does publish are dated,
+  Keep-a-Changelog-formatted CHANGELOG.md files and tagged GitHub Releases on the two active Agent
+  Foundry repos, plus per-package changelogs inside the monorepo. Only the recent window is recorded.
+streams:
+  - name: foundry-agent-packages
+    url: https://github.com/boozallen/foundry-agent-packages/blob/develop/CHANGELOG.md
+    releases_url: https://github.com/boozallen/foundry-agent-packages/releases
+    current_version: '2.0.0'
+    per_package_current:
+      foundry-agent-core: '1.2.0'
+      foundry-agent-config: '1.0.0'
+      foundry-agent-fastapi: '1.2.0'
+      foundry-strands-agent: '2.6.0'
+    entries:
+      - version: '2.0.0'
+        date: '2026-09-10'
+        breaking: true
+        highlights:
+          - 'Updated public release across the monorepo.'
+          - 'BREAKING in foundry-strands-agent: AgentToolRegistry.load_tools_from_directory is now async.'
+      - version: '1.0.0'
+        date: '2026-06-29'
+        breaking: false
+        highlights:
+          - Initial public release of the four foundry-agent-* packages.
+    recent_release_tags:
+      - {tag: foundry-strands-agent/v2.6.0, published: '2026-09-11'}
+      - {tag: foundry-agent-core/v1.2.0, published: '2026-09-11'}
+      - {tag: foundry-agent-fastapi/v1.2.0, published: '2026-09-11'}
+      - {tag: foundry-strands-agent/v1.0.0, published: '2026-06-29'}
+      - {tag: foundry-agent-fastapi/v1.0.0, published: '2026-06-29'}
+      - {tag: foundry-agent-core/v1.0.0, published: '2026-06-29'}
+      - {tag: foundry-agent-config/v1.0.0, published: '2026-06-29'}
+  - name: strands-base-agent
+    url: https://github.com/boozallen/strands-base-agent/blob/develop/CHANGELOG.md
+    releases_url: https://github.com/boozallen/strands-base-agent/releases
+    current_version: '1.0.1'
+    entries:
+      - version: '1.0.1'
+        date: '2026-06-30'
+        breaking: false
+        highlights:
+          - 'Packaging fix: the four foundry-agent-* dependencies now resolve from public GitHub Release wheels instead of a private Booz Allen JFrog index.'
+          - 'uv.lock regenerated; no longer references the internal JFrog index.'
+          - 'README gained an "Installing the foundry-* packages" section; AGENTS.md points at it.'
+      - version: '1.0.0'
+        date: '2026-06-29'
+        breaking: false
+        highlights:
+          - 'Initial public release of the baseline: FastAPI composition root, A2A agent server, query/chat-history/health routes.'
+          - 'Governance files (LICENSE, NOTICE, CONTRIBUTING, SECURITY, CODEOWNERS) and issue/PR templates.'
+          - 'Docs set: quickstart (local + Docker), configuration reference, and guides for guardrails, A2A, HTTP API, MCP servers, tools and customization.'
+  - name: aiSSEMBLE
+    url: https://github.com/boozallen/aissemble/blob/dev/DRAFT_RELEASE_NOTES.md
+    current_version: '1.12.1'
+    note: >-
+      Release notes are kept as a DRAFT_RELEASE_NOTES.md in the repo rather than a dated changelog;
+      Maven Central shows 1.12.1 published 2025-03-13 and the repo's own llms.txt says 1.13.0 is
+      releasing soon. No structured entries are recorded here because none are dated in the source.

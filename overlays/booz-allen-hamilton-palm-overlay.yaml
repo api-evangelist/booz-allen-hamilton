@@ -1,0 +1,51 @@
+# generated: '2026-09-14'
+# method: generated
+# source: openapi/booz-allen-hamilton-palm-openapi.yaml (verbatim spec from github.com/boozallen/palm)
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — Booz Allen PALM Prompt Library API
+  version: 1.0.0
+extends: ../openapi/booz-allen-hamilton-palm-openapi.yaml
+actions:
+  - target: $.info
+    description: >-
+      Record provenance and the deployment model. The upstream document carries neither, and a
+      consumer reading it in isolation cannot tell that there is no hosted instance to call.
+    update:
+      x-api-evangelist:
+        harvested: '2026-09-14'
+        source: https://raw.githubusercontent.com/boozallen/palm/main/openapi-specification.yaml
+        method: searched
+        owner: Booz Allen Hamilton
+        product: PALM — Prompt & Agent Library Marketplace
+        license: see https://github.com/boozallen/palm (LICENSE, "Other")
+        deployment: self-hosted — PALM is a Next.js/tRPC application an adopter deploys; there is no Booz Allen-operated endpoint
+  - target: $.servers
+    description: >-
+      Annotate the relative server. `/api` is correct for the application's own origin and is left
+      unchanged; the note says what host it is relative TO, which the document does not.
+    update:
+      - url: /api
+        description: >-
+          Relative to the origin of the PALM deployment you are running. There is no public
+          Booz Allen host for this API.
+  - target: $.paths['/user-story'].post
+    description: Add the operational context the upstream operation omits.
+    update:
+      x-api-evangelist:
+        note: >-
+          This is the whole published contract — one operation. PALM's broader surface (LLM provider
+          integrations, knowledge bases, user-group administration, AI agents) is exposed through
+          tRPC procedures inside the Next.js app and is not described by any published machine-readable
+          contract.
+        idempotent: false
+        reversible: false
+  - target: $
+    description: Record what the spec does NOT declare, so a reader is not left to infer it.
+    update:
+      x-api-evangelist-gaps:
+        - no components.securitySchemes and no security requirement — the document declares no authentication
+        - no info.contact and no info.termsOfService
+        - no 4xx/5xx responses on the one operation
+        - no examples in-spec
+        - info.version is 0.0.1 while the product itself is actively developed

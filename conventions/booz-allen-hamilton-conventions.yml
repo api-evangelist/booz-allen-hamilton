@@ -1,0 +1,137 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/http-api.md
+  (+ a2a-protocol.md, configuration/environment-variables.md) — read 2026-09-14
+applies_to: Agent Foundry — Strands Base Agent HTTP API (self-hosted; adopters fork and deploy)
+note: >-
+  These are the cross-cutting semantics of the only Booz Allen surface with a documented runtime
+  contract. The agent is self-hosted: every rule below is what the baseline ships, and an adopter
+  may change it in their fork.
+auth:
+  style: none-by-default
+  detail: >-
+    The baseline mounts no authentication on its REST or A2A routes. CORS is configurable
+    (STRANDS_CORS_ORIGINS, STRANDS_CORS_ALLOW_CREDENTIALS, allowed methods/headers including
+    Authorization) and TLS is configurable in the runtime, but authn/authz is explicitly the
+    adopter's responsibility — the DISA STIG checklist shipped in security/stig_checklist.json
+    marks the auth/authz controls accordingly.
+  see: authentication/booz-allen-hamilton-authentication.yml
+idempotency:
+  coverage: partial
+  scope:
+    - 'PUT /api/v1/chat/history/{session_id}'
+  mechanism: >-
+    Idempotent by resource identity, not by an Idempotency-Key header. PUT on a session id creates
+    the session and returns 201 Created; a repeat PUT on the same id returns 200 OK with a Session
+    stub instead of erroring or duplicating. Both responses set
+    Content-Location: /chat/history/{session_id}.
+  header: null
+  retention: not documented
+  uncovered:
+    - 'POST /api/v1/query'
+    - 'POST /api/v1/query/stream'
+    - 'DELETE /api/v1/chat/history/{session_id}'
+    - 'A2A message/send and message/stream (JSON-RPC)'
+  note: >-
+    1 of the 4 documented mutating REST operations carries replay protection. The query endpoints —
+    the ones that actually spend model tokens — have no idempotency mechanism, so a client retry
+    after a timeout re-runs the agent.
+  source: https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/http-api.md
+reversibility:
+  grade: documented
+  surfaces:
+    - write: 'PUT /api/v1/chat/history/{session_id}'
+      reversal: 'DELETE /api/v1/chat/history/{session_id}'
+      window: null
+      note: >-
+        Delete removes the session and its messages, returns 204 No Content (404 when absent). No
+        retention or undo window is stated anywhere in the docs, and there is no restore operation —
+        deletion is final as far as the published contract says.
+    - write: 'POST /api/v1/query'
+      reversal: null
+      window: null
+      note: >-
+        A query runs the agent and any tools it decides to call; nothing cancels or reverses it once
+        submitted. The A2A surface does expose tasks/cancel for in-flight tasks, which is a stop, not
+        an undo.
+    - write: 'A2A message/send'
+      reversal: 'A2A tasks/cancel'
+      window: 'while the task is in flight'
+      note: >-
+        tasks/cancel requests cancellation of a task that has not finished. It cannot undo work a
+        tool already performed.
+  note: >-
+    Graded `documented` rather than `verified`: reversal paths exist and are named, but no docs page
+    states a window inside which a reversal is guaranteed. No window is asserted here that the
+    provider does not publish.
+dry_run_mode:
+  supported: false
+  note: No rehearsal/dry-run parameter is documented on any endpoint.
+pagination:
+  style: limit-offset
+  params:
+    - name: limit
+      in: query
+      range: 1-100
+      applies_to: 'GET /api/v1/chat/history, GET /api/v1/chat/history/{session_id}'
+    - name: offset
+      in: query
+      range: '>= 0'
+  ordering: sessions most-recent-first; messages oldest-first
+  response_fields: plain JSON arrays — no cursor, no total count, no next link
+versioning:
+  url_scheme: path prefix /api/v1
+  payload_field: api_version, currently "1.0", echoed on query responses and on done/result SSE events
+  packages: Semantic Versioning, per-package (foundry-agent-* wheels versioned independently)
+  see: lifecycle/booz-allen-hamilton-lifecycle.yml
+request_id_tracing:
+  field: correlation_id
+  detail: >-
+    Server-assigned and returned on every success payload, every error body, and every SSE event
+    (token/result/done/error). OpenTelemetry is wired but off by default
+    (observability_enabled / STRANDS__OBSERVABILITY_ENABLED, OTEL_EXPORTER_OTLP_* read directly by
+    the OTel SDK, OTEL_SERVICE_NAME defaults to strands-base-agent).
+error_envelope:
+  shape: 'flat JSON: {error, message, details, correlation_id, timestamp}'
+  produced_by: ErrorHandlingMiddleware (foundry-agent-fastapi)
+  problem_json: false
+  note: Not RFC 9457 — a bespoke envelope. Streaming errors carry the same object as the payload of an `error` SSE event.
+  see: errors/booz-allen-hamilton-problem-types.yml
+rate_limit_signaling:
+  headers: none
+  note: >-
+    No RateLimit-*/X-RateLimit-*/Retry-After headers are documented and no 429 is listed among the
+    statuses the middleware returns. What the baseline enforces instead are bounded input controls.
+  see: rate-limits/booz-allen-hamilton-rate-limits.yml
+input_bounds:
+  - field: query
+    limit: 1-8192 characters, non-whitespace (config default max_query_length 2000)
+  - field: session_id
+    limit: 8-128 chars [A-Za-z0-9_-] in the request body; 3-40 chars as a path parameter
+  - field: context
+    limit: <= 32 keys, <= 16 KiB serialized, string keys
+  - field: max_results
+    limit: 1-100, default 10
+  - field: similarity_threshold
+    limit: 0.0-1.0, default 0.7
+  - field: max_response_time_ms
+    limit: default 30000
+streaming:
+  transport: Server-Sent Events
+  endpoint: 'POST /api/v1/query/stream (Accept: text/event-stream)'
+  events:
+    - name: token
+      payload: content, correlation_id, session_id
+    - name: result
+      payload: content, session_id, query_id, correlation_id, api_version
+    - name: done
+      payload: processing_time_ms, session_id, query_id, correlation_id, api_version
+    - name: error
+      payload: error, message, correlation_id, session_id, retryable
+    - name: event
+      payload: raw backend event, correlation_id
+  client_rule: always close the stream on `done` or `error`; retryable:true marks a transient failure safe to retry
+metadata:
+  request: 'context object (free-form, forwarded to the agent)'
+  response: 'metadata object (backend-specific extras such as token usage)'

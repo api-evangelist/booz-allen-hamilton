@@ -1,0 +1,71 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  https://github.com/boozallen/strands-base-agent/blob/develop/CHANGELOG.md,
+  .../SECURITY.md, .../docs/foundry/guides/a2a-protocol.md,
+  https://github.com/boozallen/foundry-agent-packages (README release model) — read 2026-09-14
+versioning:
+  scheme: semver
+  statement: >-
+    "The format is based on Keep a Changelog, and this project adheres to Semantic Versioning."
+  api_versioning:
+    url: path prefix /api/v1
+    payload: api_version field, currently "1.0"
+  package_versioning: >-
+    Each foundry-agent-* package is versioned independently and ships as a wheel on a GitHub Release
+    tagged <package>/vX.Y.Z (e.g. foundry-strands-agent/v2.6.0).
+support_policy:
+  source: https://github.com/boozallen/strands-base-agent/blob/develop/SECURITY.md
+  statement: 'Supported versions: 0.3.x yes, < 0.3 no — "Only the latest minor release receives security updates."'
+  note: >-
+    The table is stale relative to the repo's own releases: strands-base-agent has shipped 1.0.0 and
+    1.0.1 and its badge reads version 1.0.1, while SECURITY.md still names 0.3.x as the supported
+    line. Recorded as published, not corrected.
+deprecation:
+  policy_published: false
+  observed:
+    - item: '/.well-known/agent.json'
+      status: deprecated
+      replacement: '/.well-known/agent-card.json'
+      mechanism: 'the legacy alias is still served "for backward compatibility and emits a deprecation warning in the logs"'
+      sunset_header: false
+      sunset_date: null
+      source: https://github.com/boozallen/strands-base-agent/blob/develop/docs/foundry/guides/a2a-protocol.md
+  note: >-
+    One deprecated path with a runtime warning is not a deprecation policy. No RFC 8594
+    Deprecation/Sunset headers, no removal schedule and no policy page were found, so no
+    `Deprecation` pointer is wired.
+status_page:
+  published: false
+  note: >-
+    No status page exists and none can: the software is self-hosted by adopters, and Booz Allen runs
+    no multi-tenant API whose availability it could report. The baseline instead ships a liveness
+    endpoint each deployment operates itself — GET /api/v1/health, used by Docker/ECS/Kubernetes probes.
+sla:
+  published: false
+  note: >-
+    No service-level agreement — consistent with an Apache-2.0 self-hosted distribution. The one
+    published response-time commitment in the estate is for security reports, not availability:
+    acknowledgement within 3 business days, initial assessment within 7.
+support:
+  vulnerability_reports: GitHub private security advisory (per-repo), BAH_CIRT@bah.com for corporate reports
+  issues: GitHub Issues with bug/feature templates on the active repos
+maturity:
+  - product: foundry-agent-packages
+    status: alpha
+    statement: '"ALPHA RELEASE - NOT PRODUCTION READY. APIs may change without notice."'
+  - product: strands-base-agent
+    status: available
+    statement: status badge "available", version 1.0.1
+  - product: aiSSEMBLE
+    status: active
+    note: Maven Central 1.12.1 (2025-03-13); llms.txt in-repo says 1.13.0 releasing soon
+  - product: Open Data Platform
+    status: archived
+    note: GitHub repo archived; docs site still served at boozallen.github.io/opendataplatform/
+  - product: Cognition
+    status: archived
+    note: GitHub repo archived (last push 2016)
+  - product: sdp-pipeline-framework
+    status: archived
+    note: superseded by the Jenkins Templating Engine plugin (templating-engine 2.5.5, 2025-04-10)

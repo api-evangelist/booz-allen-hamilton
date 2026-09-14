@@ -1,0 +1,115 @@
+generated: '2026-09-14'
+method: searched
+source: >-
+  GitHub Releases (github.com/boozallen/foundry-agent-packages), PyPI JSON API,
+  Maven Central solrsearch, plugins.jenkins.io API — queried 2026-09-14
+note: >-
+  Booz Allen Hamilton publishes no client SDK for a hosted Booz Allen API — the firm operates
+  no public callable API. What it does publish are first-party open source libraries for its own
+  open source platforms: the Agent Foundry agent libraries (Python wheels on GitHub Releases),
+  the aiSSEMBLE AI engineering baseline (Maven Central + PyPI), and the Jenkins Templating Engine
+  that powers the Solutions Delivery Platform (Jenkins update center). Every entry below was read
+  from the registry metadata endpoint on the date above.
+packages:
+  - name: foundry-agent-core
+    registry: github-releases
+    url: https://github.com/boozallen/foundry-agent-packages/releases
+    repository: https://github.com/boozallen/foundry-agent-packages
+    language: python
+    official: true
+    version: 1.2.0
+    published: '2026-09-11'
+    install: 'pip install https://github.com/boozallen/foundry-agent-packages/releases/download/foundry-agent-core/v1.2.0/foundry_agent_core-1.2.0-py3-none-any.whl'
+    note: >-
+      DI container, protocols, types, exceptions, lifecycle. Distributed as a wheel attached to a
+      GitHub Release — the project states there is no public PyPI yet and adopters are expected to
+      mirror the wheels into their own internal index. Release assets include an SBOM and a Grype
+      scan report alongside the wheel.
+  - name: foundry-agent-config
+    registry: github-releases
+    url: https://github.com/boozallen/foundry-agent-packages/releases
+    repository: https://github.com/boozallen/foundry-agent-packages
+    language: python
+    official: true
+    version: 1.0.0
+    published: '2026-06-29'
+    note: >-
+      YAML loader with env-var overrides and bounded input controls. Still on its initial release
+      while its three siblings have shipped 1.2.0/2.6.0 — the oldest package in the workspace.
+  - name: foundry-agent-fastapi
+    registry: github-releases
+    url: https://github.com/boozallen/foundry-agent-packages/releases
+    repository: https://github.com/boozallen/foundry-agent-packages
+    language: python
+    official: true
+    version: 1.2.0
+    published: '2026-09-11'
+    note: CORS / error / logging middleware, request models and the health router used by the HTTP API.
+  - name: foundry-strands-agent
+    registry: github-releases
+    url: https://github.com/boozallen/foundry-agent-packages/releases
+    repository: https://github.com/boozallen/foundry-agent-packages
+    language: python
+    official: true
+    version: 2.6.0
+    published: '2026-09-11'
+    note: AWS Strands SDK adapter — backend, factory, orchestrator and tool loader.
+  - name: aissemble-foundation-core-python
+    registry: pypi
+    url: https://pypi.org/project/aissemble-foundation-core-python/
+    repository: https://github.com/boozallen/aissemble
+    language: python
+    official: true
+    version: 2.0.0
+    published: '2025-10-08'
+    note: >-
+      First-party — PyPI metadata gives author "aiSSEMBLE Baseline Community", author_email
+      aissemble@bah.com, homepage github.com/boozallen/aissemble, Apache-2.0.
+  - name: aissemble-inference-core
+    registry: pypi
+    url: https://pypi.org/project/aissemble-inference-core/
+    repository: https://github.com/boozallen/aissemble-inference
+    language: python
+    official: true
+    version: 1.5.0
+    published: '2026-02-04'
+    note: >-
+      Client library for invoking Open Inference Protocol (OIP) endpoints. PyPI author_email is
+      "aiSSEMBLE Team <aissemble@bah.com>". This is the closest thing in the estate to a
+      conventional API client SDK.
+  - name: com.boozallen.aissemble
+    registry: maven
+    url: https://central.sonatype.com/namespace/com.boozallen.aissemble
+    repository: https://github.com/boozallen/aissemble
+    language: java
+    official: true
+    version: 1.12.1
+    published: '2025-03-13'
+    note: >-
+      Group coordinate, not a single artifact — Maven Central solrsearch returns 161 artifacts under
+      com.boozallen.aissemble (foundation-core, foundation-encryption, extensions-data-delivery-*,
+      model-training-api-containers, kafka-chart and so on), all at 1.12.1 as of the date probed.
+      aissemble-parent is separately versioned (6, 2026-03-19).
+  - name: templating-engine
+    registry: jenkins
+    url: https://plugins.jenkins.io/templating-engine/
+    repository: https://github.com/boozallen/jenkins-templating-engine
+    language: groovy
+    official: true
+    version: 2.5.5
+    published: '2025-04-10'
+    note: >-
+      The Jenkins plugin behind Booz Allen's Solutions Delivery Platform. Version and release
+      timestamp read from plugins.jenkins.io/api/plugin/templating-engine.
+absent:
+  - registry: npm
+    note: >-
+      registry.npmjs.org search for "boozallen" returns one unrelated package
+      (com.boozallen.readairdatfile, 1.0.0, 2023-07-13) with no repository link; no first-party
+      Booz Allen npm scope or package was found. PALM (the Next.js platform) vendors its
+      dependencies rather than publishing any.
+  - registry: pypi
+    name: foundry-agent-*
+    note: >-
+      All four foundry-agent packages 404 on pypi.org/pypi/<name>/json — deliberate, per the
+      project README: "Releases ship as GitHub Releases … (no public PyPI yet)".
