@@ -104,6 +104,8 @@ apis:
   humanURL: https://boozallen.github.io/agent-foundry/
   baseURL: https://{agent-host}/api/v1
   tags:
+  - Agile
+  tags_raw:
   - agile
   properties:
   - type: OpenAPI
