@@ -1,7 +1,9 @@
 ---
 title: INVESTOR NEWS | Booz Allen Hamilton
 url: https://investors.boozallen.com/press-releases
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Booz Allen Hamilton Holding" press release artificial intelligence'
 position: 2
 source: serpapi-google

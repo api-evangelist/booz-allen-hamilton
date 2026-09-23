@@ -1,0 +1,21 @@
+{
+  "provider": "booz-allen-hamilton",
+  "sources": [
+    "_original/booz-allen-hamilton-palm-openapi.yaml"
+  ],
+  "outputs": [
+    "booz-allen-hamilton-agile-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "booz-allen-hamilton-palm-openapi.yaml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "booz-allen-hamilton-palm-openapi.yaml: declared missing tag: agile",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "booz-allen-hamilton-agile-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
