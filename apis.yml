@@ -7,15 +7,21 @@ description: Booz Allen Hamilton is a leading management and technology consulti
   Cognition data fusion platform.
 type: Index
 deliveryModel:
-  model: unknown
-  open_source: false
-  commercial: false
+  model: saas
+  license_evidence:
+    not_product:
+    - boozallen/palm
+    - boozallen/strands-base-agent
+  open_source: unknown
+  commercial: true
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
-  - none
-  generated: '2026-08-28'
+  - openapi
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: unknown
@@ -38,7 +44,7 @@ tags:
 - Consulting
 - Cybersecurity
 - Defense
-- Federal-Government
+- Federal Government
 - Intelligence
 - Management Consulting
 - Technology
@@ -53,6 +59,7 @@ tags_raw:
 - Management Consulting
 - Technology
 - Fortune 500
+- Federal-Government
 apis:
 - aid: booz-allen-hamilton:booz-allen-hamilton-agent-foundry-strands-base-agent
   name: Agent Foundry — Strands Base Agent API
@@ -71,11 +78,12 @@ apis:
   tags:
   - Artificial Intelligence
   - Agents
-  - Open-Source
+  - Open Source
   tags_raw:
   - Artificial Intelligence
   - Agents
   - Open Source
+  - Open-Source
   properties:
   - type: Documentation
     url: https://boozallen.github.io/agent-foundry/
