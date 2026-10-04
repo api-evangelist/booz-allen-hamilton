@@ -123,6 +123,9 @@ apis:
   - type: Documentation
     url: https://github.com/boozallen/palm/blob/main/README.md
 common:
+- type: CapabilityMap
+  url: capabilities/booz-allen-hamilton-capability-edges.yml
+  name: Booz Allen Hamilton Business Capability Map
 - type: Overlay
   url: overlays/booz-allen-hamilton-palm-overlay.yaml
 - type: DomainSecurity
