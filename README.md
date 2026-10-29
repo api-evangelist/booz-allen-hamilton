@@ -64,29 +64,108 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Booz Allen Hamilton is a leading management and technology consulting firm providing services primarily to U.S. government agencies in defense, intelligence, and civil markets. The firm employs over 2,500 AI specialists and 8,000 cybersecurity professionals, and maintains a significant open source presence on GitHub.
+Booz Allen Hamilton is a leading management and technology consulting firm providing services primarily to U.S. government agencies in defense, intelligence, and civil markets. The firm employs over 2,500 AI specialists and 8,000 cybersecurity professionals, and maintains a significant open source presence on GitHub with projects including the Solutions Delivery Platform, Open Data Platform, and Cognition data fusion platform.
 
-**URL:** [https://www.boozallen.com](https://www.boozallen.com)
+**Areas:** Artificial Intelligence · Consulting · Cybersecurity · Defense · Federal Government · Intelligence · Management Consulting · Technology · Fortune 500
 
-**GitHub:** [https://github.com/boozallen](https://github.com/boozallen)
+## Booz Allen Hamilton on APIs.io
 
-**APIs.yml:** [View APIs Index](https://raw.githubusercontent.com/api-evangelist/booz-allen-hamilton/refs/heads/main/apis.yml)
+Everything profiled for Booz Allen Hamilton is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/booz-allen-hamilton/](https://apis.io/providers/booz-allen-hamilton/)** — or go straight to one of the APIs or properties below.
 
-## Open Source Projects
+### APIs (2)
 
-- **[Solutions Delivery Platform (SDP)](https://boozallen.github.io/sdp-docs/overview/1/index.html)** - Open source reusable DevSecOps pipeline framework
-- **[Open Data Platform](https://boozallen.github.io/opendataplatform/)** - Enterprise-scale, vendor-neutral open source data platform
-- **[Cognition](https://github.com/boozallen/cognition)** - Open source platform for data ingest, data fusion, and search
+- [Agent Foundry — Strands Base Agent API](https://apis.io/apis/booz-allen-hamilton/booz-allen-hamilton-agent-foundry-strands-base-agent/) — The HTTP and A2A surface of Booz Allen's Agent Foundry agent baseline, an Apache-2.0 composition root that teams fork and deploy in their own environment.…
+- [Booz Allen Hamilton Agile API](https://apis.io/apis/booz-allen-hamilton/booz-allen-hamilton-agile-api/) — The agile API from Booz Allen Hamilton — 1 operation(s) for agile.
 
-## Core Capabilities
+### Published properties
 
-- **Artificial Intelligence** - Leading AI provider to the federal government; machine learning, NLP, computer vision, LLM integration
-- **Cybersecurity** - Zero trust, threat intelligence, incident response, critical infrastructure protection
-- **Digital Transformation** - Cloud migration, legacy modernization, DevSecOps, platform engineering
-- **Defense Technology** - C2 systems, mission systems, autonomous systems, warfighter technology
-- **Space Technology** - Domain awareness, battle management, satellite analytics
-- **Quantum Computing** - Quantum algorithms, quantum-safe cryptography, post-quantum security
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Maintainers
+#### Overlays (1)
 
-- **Kin Lane** - kinlane@gmail.com
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Booz Allen Hamilton Palm Overlay](https://apis.io/overlays/booz-allen-hamilton/booz-allen-hamilton-palm-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Booz Allen Hamilton Authentication](https://apis.io/security/booz-allen-hamilton/booz-allen-hamilton-authentication/)
+- [Booz Allen Hamilton Domain Security](https://apis.io/security/booz-allen-hamilton/booz-allen-hamilton-domain-security/)
+- [Booz Allen Hamilton Vulnerability Disclosure](https://apis.io/security/booz-allen-hamilton/booz-allen-hamilton-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Booz Allen Hamilton Plans Pricing](https://apis.io/plans/booz-allen-hamilton/booz-allen-hamilton-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Booz Allen Hamilton Rate Limits](https://apis.io/rate-limits/booz-allen-hamilton/booz-allen-hamilton-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.boozallen.com)
+- [Blog](https://www.boozallen.com/insights.html)
+- [Security](https://www.boozallen.com/e/about-content/cyber-security-concern-reporting.html)
+- [Terms of service](https://www.boozallen.com/tools/footer-navigation/terms-of-use.html)
+- [Privacy policy](https://www.boozallen.com/tools/footer-navigation/privacy-policy.html)
+
+## API Evangelist rating
+
+**Kin Score 38.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 34.3 |
+| Contract governance | 18.2 |
+| Operational transparency | 31.6 |
+| Developer ergonomics | 45.2 |
+| Access clarity | 28.9 |
+
+**Agent readiness 25.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 27.3** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/booz-allen-hamilton/](https://apis.io/providers/booz-allen-hamilton/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Booz Allen Hamilton: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/booz-allen-hamilton/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
